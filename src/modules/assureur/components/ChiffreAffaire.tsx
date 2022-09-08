@@ -1,0 +1,101 @@
+import styled from '@emotion/styled';
+import { Input } from 'antd';
+
+const Container = styled.div`
+  p {
+    font-size: 16px;
+  }
+  > h2 {
+    font-family: Montserrat;
+  }
+
+  > .content {
+    margin-left: 30px;
+    margin-bottom: 20px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  td {
+    border: 2px solid #dddddd;
+    text-align: center;
+    padding: 10px;
+  }
+
+  th {
+    border: 2px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: normal;
+  }
+`;
+
+export const ChiffreAffaire = ({
+  onChange,
+}: {
+  onChange: (field: any, val: any) => void;
+}) => {
+  return (
+    <Container>
+      <h2>Company turnover</h2>
+      <div className='content'>
+        <p style={{ display: 'block' }}>Amount of the turnover achieved :</p>
+
+        <table>
+          <tr>
+            <th>Last fiscal year</th>
+            <th>Current fiscal year</th>
+            <th>Next fiscal year</th>
+          </tr>
+          <tr>
+            <td>
+              <Input.Group compact>
+                <Input
+                  style={{ width: '60%' }}
+                  suffix='$'
+                  onChange={(e) => onChange('CA_LAST', e.target.value)}
+                />
+              </Input.Group>
+            </td>
+            <td>
+              <Input.Group compact>
+                <Input
+                  style={{ width: '60%' }}
+                  suffix='$'
+                  onChange={(e) => onChange('CA_PREVISIONNEL', e.target.value)}
+                />
+              </Input.Group>
+            </td>
+            <td>
+              <Input.Group compact>
+                <Input
+                  style={{ width: '60%' }}
+                  suffix='$'
+                  onChange={(e) => onChange('CA_A_VENIR', e.target.value)}
+                />
+              </Input.Group>
+            </td>
+          </tr>
+        </table>
+        {/* <div>
+          <Space>
+            <p style={{ margin: 0 }}>
+              Gross operating margin for the last fiscal year
+            </p>
+            <Input
+              style={{ width: 100 }}
+              size='large'
+              suffix='%'
+              onChange={(e) => onChange('MARGE_BRUTE_EXPL', e.target.value)}
+            />
+          </Space>
+        </div> */}
+      </div>
+    </Container>
+  );
+};
