@@ -1,7 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Alert, Button, Col, Row, Upload } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Container = styled.div`
   min-width: 600px;
@@ -31,6 +31,7 @@ export const FormUpload = ({
   const extractHandler = (e: any) => {
     setextract(e.file.originFileObj);
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const policyHandler = (e: any) => {
     setpolicy(e.file.originFileObj);
   };

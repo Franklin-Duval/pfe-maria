@@ -12,6 +12,8 @@ const Container = styled.div`
   > .content {
     margin-left: 30px;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   table {

@@ -42,15 +42,75 @@ const Container = styled.div`
 `;
 
 export const Questions = ({
-  onFinish,
+  setPage,
   onChange,
 }: {
-  onFinish: () => void;
+  setPage: (val: number) => void;
   onChange: (field: any, val: any) => void;
 }) => {
-  const submit = () => {
-    onFinish();
-  };
+  const QUESTIONS = [
+    {
+      id: 'ANTIVIRUS_FIREWALL',
+      question: 'Does the company use a firewall ?',
+      select: false,
+    },
+    {
+      id: 'ANTIMALWARE',
+      question: 'Does the company use an anti-malware ?',
+      select: false,
+    },
+    {
+      id: 'MISES_A_JOUR',
+      question: 'Regular software patches ?',
+      select: false,
+    },
+    {
+      id: 'ANALYSE_VULNERABILITES',
+      question: 'Are pentests often conducted ?',
+      select: false,
+    },
+    {
+      id: 'LEAST_PRIVILEGE',
+      question: 'Is the Least privilege policy implemented?',
+      select: false,
+    },
+    {
+      id: 'CONTROLE_ACCES',
+      question: 'Is access control implemented?',
+      select: false,
+    },
+    {
+      id: 'CHARTE_MOT_DE_PASSE',
+      question: 'Is there a password policy ?',
+      select: false,
+    },
+    {
+      id: 'DONNEES_CRYPTEES',
+      question: 'Is data encrypted ?',
+      select: false,
+    },
+    {
+      id: 'STANDARD_PCI_DSS',
+      question: 'Are they PCI compliant ?',
+      select: false,
+    },
+
+    {
+      id: 'PLAN_CONTINUITE',
+      question: 'Does the company have a continuity plan ?',
+      select: false,
+    },
+    {
+      id: 'RTO_RPO_DEFINIS',
+      question: 'Are RTOs/RPOs defined for all processes?',
+      select: false,
+    },
+    {
+      id: 'FORMATION_EMPLOYES',
+      question: 'Are employees trained concerning security awareness?',
+      select: false,
+    },
+  ];
 
   return (
     <Container>
@@ -75,64 +135,19 @@ export const Questions = ({
             </tr>
           ))}
         </table>
-        <div>
-          <Button type='primary' size='large' onClick={submit}>
-            Submit
-          </Button>
-        </div>
       </div>
+      <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button style={{ width: 200 }} onClick={() => setPage(1)}>
+          Previous
+        </Button>
+        <Button
+          type='primary'
+          style={{ width: 200 }}
+          onClick={() => setPage(3)}
+        >
+          Next
+        </Button>
+      </Space>
     </Container>
   );
 };
-
-const QUESTIONS = [
-  {
-    id: 'ANTIVIRUS_FIREWALL',
-    question: 'Does the company use a firewall ?',
-  },
-  {
-    id: 'ANTIMALWARE',
-    question: 'Does the company use an anti-malware ?',
-  },
-  {
-    id: 'MISES_A_JOUR',
-    question: 'Regular software patches ?',
-  },
-  {
-    id: 'ANALYSE_VULNERABILITES',
-    question: 'Are pentests often conducted ?',
-  },
-  {
-    id: 'LEAST_PRIVILEGE',
-    question: 'Is the Least privilege policy implemented?',
-  },
-  {
-    id: 'CONTROLE_ACCES',
-    question: 'Is access control implemented?',
-  },
-  {
-    id: 'CHARTE_MOT_DE_PASSE',
-    question: 'Is there a password policy ?',
-  },
-  {
-    id: 'DONNEES_CRYPTEES',
-    question: 'Is data encrypted ?',
-  },
-  {
-    id: 'STANDARD_PCI_DSS',
-    question: 'Are they PCI compliant ?',
-  },
-
-  {
-    id: 'PLAN_CONTINUITE',
-    question: 'Does the company have a continuity plan ?',
-  },
-  {
-    id: 'RTO_RPO_DEFINIS',
-    question: 'Are RTOs/RPOs defined for all processes?',
-  },
-  {
-    id: 'FORMATION_EMPLOYES',
-    question: 'Are employees trained concerning security awareness?',
-  },
-];

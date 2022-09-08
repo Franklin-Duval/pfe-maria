@@ -1,7 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Button, Col, Row, Upload } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Container = styled.div`
   min-width: 600px;
@@ -18,11 +18,11 @@ const Container = styled.div`
 `;
 
 export const FileUpload = ({
-  onFinish,
   getData,
+  setPage,
 }: {
-  onFinish: () => void;
   getData: (val: any) => void;
+  setPage: (val: number) => void;
 }) => {
   let formdata = new FormData();
   const [extract, setextract] = useState<any>();
@@ -55,7 +55,7 @@ export const FileUpload = ({
         console.error('Error:', error);
       });
 
-    onFinish();
+    setPage(1);
   };
 
   return (
@@ -119,7 +119,7 @@ export const FileUpload = ({
         </Col>
       </Row>
 
-      <Row style={{ marginBottom: 30 }}>
+      {/* <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Income statement : </Col>
         <Col span={10}>
           <Upload
@@ -134,10 +134,10 @@ export const FileUpload = ({
             </Button>
           </Upload>
         </Col>
-      </Row>
+      </Row> */}
 
-      <Button type='primary' size='large' onClick={submit}>
-        Submit
+      <Button type='primary' style={{ width: 200 }} onClick={submit}>
+        Next
       </Button>
     </Container>
   );

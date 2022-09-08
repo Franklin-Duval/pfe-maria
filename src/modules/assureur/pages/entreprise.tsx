@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import { CompanyEntity } from '../../entities/company';
 import { DateFrHrWithTime } from '../../shared/DateToFrench';
 import { Drawer } from '../../shared/SidebarContainer';
@@ -10,7 +9,7 @@ const Container = styled.div`
 `;
 
 export const Entreprises = () => {
-  const router = useNavigate();
+  // const router = useNavigate();
 
   const columns = [
     {
@@ -29,68 +28,6 @@ export const Entreprises = () => {
       key: 'date',
       render: DateFrHrWithTime,
     },
-    // {
-    //   title: 'Action',
-    //   key: 'action',
-    //   render: function fiche(cell: any, row: CompanyEntity) {
-    //     return (
-    //       <p> </p>
-    //       // <Space>
-    //       //   <Tooltip title='Edit'>
-    //       //     <Button
-    //       //       icon={<FaPen size={13} />}
-    //       //       type='primary'
-    //       //       shape='circle'
-    //       //     />
-    //       //   </Tooltip>
-
-    //       //   <Tooltip title='Supprimer'>
-    //       //     <ButtonWithModal
-    //       //       buttonText={<FaTrash size={13} />}
-    //       //       buttonProps={{
-    //       //         danger: true,
-    //       //         shape: 'circle',
-    //       //         style: {
-    //       //           display: 'flex',
-    //       //           justifyContent: 'center',
-    //       //           alignItems: 'center',
-    //       //         },
-    //       //       }}
-    //       //       modalProps={{ title: "Supprimer l'entreprise" }}
-    //       //     >
-    //       //       {(closeModal) => (
-    //       //         <div>
-    //       //           <h3>Voulez vraiment supprimer l'entreprise</h3>
-
-    //       //           <Space style={{ marginTop: 15 }}>
-    //       //             <Button onClick={closeModal}>Fermer</Button>
-    //       //             <Button
-    //       //               type='primary'
-    //       //               danger
-    //       //               onClick={() => {
-    //       //                 closeModal();
-    //       //               }}
-    //       //             >
-    //       //               Confirm
-    //       //             </Button>
-    //       //           </Space>
-    //       //         </div>
-    //       //       )}
-    //       //     </ButtonWithModal>
-    //       //   </Tooltip>
-
-    //       //   <Tooltip title='Souscription'>
-    //       //     <Button
-    //       //       icon={<FaClipboardList size={15} />}
-    //       //       type='primary'
-    //       //       onClick={() => router(ROUTES.ASSUREUR.SOUSCRIPTION)}
-    //       //       shape='circle'
-    //       //     />
-    //       //   </Tooltip>
-    //       // </Space>
-    //     );
-    //   },
-    // },
   ];
 
   return (

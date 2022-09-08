@@ -1,5 +1,4 @@
 import { Table } from 'antd';
-import React from 'react';
 const columns = [
   {
     title: 'Full Name',
@@ -67,7 +66,7 @@ const columns = [
     key: 'operation',
     fixed: 'right',
     width: 100,
-    render: () => <a>action</a>,
+    render: () => <p>action</p>,
   },
 ];
 const data: any = [];

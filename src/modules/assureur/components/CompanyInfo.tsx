@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
-import { Button, Col, Input, Row } from 'antd';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Button, Col, Input, Row, Space } from 'antd';
 const Container = styled.div`
   min-width: 600px;
 
@@ -17,20 +15,19 @@ const Container = styled.div`
 `;
 
 export const CompanyInfo = ({
-  onFinish,
+  setPage,
   data,
 }: {
-  onFinish: () => void;
+  setPage: (val: number) => void;
   data: any;
 }) => {
-  const router = useNavigate();
   // useEffect(() => {
   //   console.log(data);
   //   console.log('data is just above : ');
   // }, [data]);
 
   const submit = () => {
-    onFinish();
+    setPage(2);
   };
 
   return (
@@ -39,42 +36,47 @@ export const CompanyInfo = ({
 
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Company name : </Col>
-        <Col span={10}>
+        <Col span={14}>
           <Input placeholder='Company name' />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Address : </Col>
-        <Col span={10}>
+        <Col span={14}>
           <Input placeholder='Address' />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Activity : </Col>
-        <Col span={10}>
+        <Col span={14}>
           <Input placeholder='Activity' />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Employees : </Col>
-        <Col span={10}>
+        <Col span={14}>
           <Input placeholder='Employees' />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Turnover : </Col>
-        <Col span={10}>
+        <Col span={14}>
           <Input placeholder='turnover' />
         </Col>
       </Row>
 
-      <Button type='primary' size='large' onClick={submit}>
-        Submit
-      </Button>
+      <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button style={{ width: 200 }} onClick={() => setPage(0)}>
+          Previous
+        </Button>
+        <Button type='primary' style={{ width: 200 }} onClick={submit}>
+          Next
+        </Button>
+      </Space>
     </Container>
   );
 };

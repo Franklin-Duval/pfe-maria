@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Button, Steps } from 'antd';
-import React, { useState } from 'react';
+import { Button, Space, Steps } from 'antd';
+import { useState } from 'react';
 import { Drawer } from '../../shared/SidebarContainer';
 import { AutreInfo } from '../components/AutresInfo';
 import { ChiffreAffaire } from '../components/ChiffreAffaire';
@@ -22,7 +22,7 @@ export const NewCompany = () => {
   const [step, setStep] = useState(0);
   const [getData, setgetData] = useState<any>();
 
-  const [company, setCompany] = useState<any>();
+  // const [company, setCompany] = useState<any>();
   const [questionnaire, setQuestionnaire] = useState<any>({
     SEC_ACT: '',
     CA_LAST: 0,
@@ -56,13 +56,44 @@ export const NewCompany = () => {
     TAUX_COUVERTURE_DETTE: 0,
   });
 
-  // useEffect(() => {
-  //   console.log(getData);
-  //   console.log('getData is just above : ');
-  // }, [getData]);
-  const submit = () => {
-    //save to database... and show
-  };
+  // const submit = () => {
+  //   //save to database... and show
+  // };
+
+  const pages = [
+    <FileUpload setPage={setStep} getData={setgetData} />,
+    <CompanyInfo setPage={setStep} data={getData} />,
+    <Questions
+      setPage={setStep}
+      onChange={(field: any, value: any) => {
+        questionnaire[field] = value;
+        setQuestionnaire({ ...questionnaire });
+      }}
+    />,
+
+    <div>
+      <ChiffreAffaire
+        onChange={(field: any, value: any) => {
+          questionnaire[field] = value;
+          setQuestionnaire({ ...questionnaire });
+        }}
+      />
+      <AutreInfo
+        onChange={(field: any, value: any) => {
+          questionnaire[field] = value;
+          setQuestionnaire({ ...questionnaire });
+        }}
+      />
+      <Space style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Button style={{ width: 200 }} onClick={() => setStep(2)}>
+          Previous
+        </Button>
+        <Button type='primary' style={{ width: 200 }} onClick={() => {}}>
+          Next
+        </Button>
+      </Space>
+    </div>,
+  ];
   return (
     <Drawer>
       <Container>
@@ -83,52 +114,9 @@ export const NewCompany = () => {
             title='Security'
             description='Validate the auto-filled form'
           />
-          <Steps.Step
-            title='More info'
-            description='Validate the auto-filled form'
-          />
         </Steps>
 
-        <div className='content'>
-          {step === 0 ? (
-            <FileUpload onFinish={() => setStep(1)} getData={setgetData} />
-          ) : step === 1 ? (
-            <CompanyInfo onFinish={() => setStep(2)} data={getData} />
-          ) : //Identification c bon
-
-          step === 2 ? (
-            // <Questions onFinish={() => setStep(3)} onChange={undefined} />
-            <Questions
-              onFinish={() => setStep(3)}
-              onChange={(field: any, value: any) => {
-                questionnaire[field] = value;
-                setQuestionnaire({ ...questionnaire });
-              }}
-            />
-          ) : (
-            //Question
-            //3
-            <div>
-              <ChiffreAffaire
-                onChange={(field: any, value: any) => {
-                  questionnaire[field] = value;
-                  setQuestionnaire({ ...questionnaire });
-                }}
-              />
-              <AutreInfo
-                onChange={(field: any, value: any) => {
-                  questionnaire[field] = value;
-                  setQuestionnaire({ ...questionnaire });
-                }}
-              />
-              <div>
-                <Button type='primary' size='large' onClick={submit}>
-                  Save
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
+        <div className='content'>{pages[step]}</div>
       </Container>
     </Drawer>
   );

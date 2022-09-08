@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Col, Input, Row } from 'antd';
+import { Col, Input, Row, Space } from 'antd';
 
 const Container = styled.div`
   > h2 {
@@ -26,10 +26,10 @@ export const AutreInfo = ({
     <Container>
       <h2>Supplementary information </h2>
       <div className='content'>
-        <p style={{ display: 'block' }}>
+        <Space size={50}>
           <Row>
-            <Col span={25}>Solvency ratio : </Col>
-            <Col span={14}>
+            <Col span={12}>Solvency ratio : </Col>
+            <Col span={12}>
               <Input
                 placeholder='Solvency ratio'
                 onChange={(e) =>
@@ -38,11 +38,9 @@ export const AutreInfo = ({
               />
             </Col>
           </Row>
-        </p>
-        <p style={{ display: 'block' }}>
           <Row>
-            <Col span={25}>Debt coverage ratio : </Col>
-            <Col span={14}>
+            <Col span={12}>Debt coverage ratio : </Col>
+            <Col span={12}>
               <Input
                 placeholder='Debt coverage ratio'
                 onChange={(e) =>
@@ -51,7 +49,7 @@ export const AutreInfo = ({
               />
             </Col>
           </Row>
-        </p>
+        </Space>
       </div>
     </Container>
   );
