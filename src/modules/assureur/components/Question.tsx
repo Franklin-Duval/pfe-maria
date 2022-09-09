@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { Button, Radio, Space } from 'antd';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { CompanyEntity } from '../../entities/company';
 
 const Container = styled.div`
   p {
@@ -43,74 +45,121 @@ const Container = styled.div`
 
 export const Questions = ({
   setPage,
-  onChange,
+  data,
+  updateData,
 }: {
   setPage: (val: number) => void;
-  onChange: (field: any, val: any) => void;
+  data?: CompanyEntity;
+  updateData: (val: CompanyEntity) => void;
 }) => {
   const QUESTIONS = [
     {
-      id: 'ANTIVIRUS_FIREWALL',
+      id: 1,
       question: 'Does the company use a firewall ?',
-      select: false,
+      select: data?.firewall ? true : false,
     },
     {
-      id: 'ANTIMALWARE',
+      id: 2,
       question: 'Does the company use an anti-malware ?',
-      select: false,
+      select: data?.antimalware ? true : false,
     },
     {
-      id: 'MISES_A_JOUR',
+      id: 3,
       question: 'Regular software patches ?',
-      select: false,
+      select: data?.patch ? true : false,
     },
     {
-      id: 'ANALYSE_VULNERABILITES',
+      id: 4,
       question: 'Are pentests often conducted ?',
-      select: false,
+      select: data?.pentest ? true : false,
     },
     {
-      id: 'LEAST_PRIVILEGE',
+      id: 5,
       question: 'Is the Least privilege policy implemented?',
-      select: false,
+      select: data?.least_priv ? true : false,
     },
     {
-      id: 'CONTROLE_ACCES',
+      id: 6,
       question: 'Is access control implemented?',
-      select: false,
+      select: data?.access_control1 ? true : false,
     },
     {
-      id: 'CHARTE_MOT_DE_PASSE',
+      id: 7,
       question: 'Is there a password policy ?',
-      select: false,
+      select: data?.passw_policy ? true : false,
     },
     {
-      id: 'DONNEES_CRYPTEES',
+      id: 8,
       question: 'Is data encrypted ?',
-      select: false,
+      select: data?.encryption ? true : false,
     },
     {
-      id: 'STANDARD_PCI_DSS',
+      id: 9,
       question: 'Are they PCI compliant ?',
-      select: false,
+      select: data?.pci ? true : false,
     },
 
     {
-      id: 'PLAN_CONTINUITE',
+      id: 10,
       question: 'Does the company have a continuity plan ?',
-      select: false,
+      select: data?.continuity_plan ? true : false,
     },
     {
-      id: 'RTO_RPO_DEFINIS',
+      id: 11,
       question: 'Are RTOs/RPOs defined for all processes?',
-      select: false,
+      select: data?.rpo ? true : false,
     },
     {
-      id: 'FORMATION_EMPLOYES',
+      id: 12,
       question: 'Are employees trained concerning security awareness?',
-      select: false,
+      select: data?.emp_training ? true : false,
     },
   ];
+
+  const getNewValue = (id: number, val: boolean) => {
+    if (data) {
+      switch (id) {
+        case 1:
+          updateData({ ...data, firewall: val });
+          break;
+        case 2:
+          updateData({ ...data, antimalware: val });
+          break;
+        case 3:
+          updateData({ ...data, patch: val });
+          break;
+        case 4:
+          updateData({ ...data, pentest: val });
+          break;
+        case 5:
+          updateData({ ...data, least_priv: val });
+          break;
+        case 6:
+          updateData({ ...data, access_control1: val });
+          break;
+        case 7:
+          updateData({ ...data, passw_policy: val });
+          break;
+        case 8:
+          updateData({ ...data, encryption: val });
+          break;
+        case 9:
+          updateData({ ...data, pci: val });
+          break;
+        case 10:
+          updateData({ ...data, continuity_plan: val });
+          break;
+        case 11:
+          updateData({ ...data, rpo: val });
+          break;
+        case 12:
+          updateData({ ...data, emp_training: val });
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   return (
     <Container>
@@ -125,10 +174,12 @@ export const Questions = ({
                   <Radio.Group
                     onChange={(e) => {
                       console.log(item.question, e.target.value);
+                      getNewValue(item.id, e.target.value);
                     }}
+                    defaultValue={item.select}
                   >
-                    <Radio value='oui'>Oui</Radio>
-                    <Radio value='non'>Non</Radio>
+                    <Radio value={true}>Oui</Radio>
+                    <Radio value={false}>Non</Radio>
                   </Radio.Group>
                 </Space>
               </td>
@@ -137,7 +188,11 @@ export const Questions = ({
         </table>
       </div>
       <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button style={{ width: 200 }} onClick={() => setPage(1)}>
+        <Button
+          icon={<FaArrowLeft style={{ marginRight: 5, marginBottom: -2 }} />}
+          style={{ width: 200 }}
+          onClick={() => setPage(1)}
+        >
           Previous
         </Button>
         <Button
@@ -145,7 +200,7 @@ export const Questions = ({
           style={{ width: 200 }}
           onClick={() => setPage(3)}
         >
-          Next
+          Next <FaArrowRight style={{ marginLeft: 5, marginBottom: -2 }} />
         </Button>
       </Space>
     </Container>

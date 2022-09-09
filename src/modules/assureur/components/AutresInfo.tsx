@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { Col, Input, Row, Space } from 'antd';
+import { useState } from 'react';
+import { CompanyEntity } from '../../entities/company';
 
 const Container = styled.div`
   > h2 {
@@ -18,10 +20,15 @@ const Container = styled.div`
 `;
 
 export const AutreInfo = ({
-  onChange,
+  data,
+  updateData,
 }: {
-  onChange: (field: any, val: any) => void;
+  data?: CompanyEntity;
+  updateData: (val: CompanyEntity) => void;
 }) => {
+  const [solvency, setSolvency] = useState(data?.solvency);
+  const [coverage, setCoverage] = useState(data?.debt_coverage);
+
   return (
     <Container>
       <h2>Supplementary information </h2>
@@ -31,10 +38,18 @@ export const AutreInfo = ({
             <Col span={12}>Solvency ratio : </Col>
             <Col span={12}>
               <Input
+                type='number'
+                value={solvency}
                 placeholder='Solvency ratio'
-                onChange={(e) =>
-                  onChange('R_SOLVABILITE', Number(e.target.value))
-                }
+                onChange={(val) => {
+                  setSolvency(Number(val.target.value));
+                  if (data) {
+                    updateData({
+                      ...data,
+                      solvency: Number(val.target.value),
+                    });
+                  }
+                }}
               />
             </Col>
           </Row>
@@ -42,10 +57,18 @@ export const AutreInfo = ({
             <Col span={12}>Debt coverage ratio : </Col>
             <Col span={12}>
               <Input
+                type='number'
+                value={coverage}
                 placeholder='Debt coverage ratio'
-                onChange={(e) =>
-                  onChange('TAUX_COUVERTURE_DETTE', Number(e.target.value))
-                }
+                onChange={(val) => {
+                  setCoverage(Number(val.target.value));
+                  if (data) {
+                    updateData({
+                      ...data,
+                      debt_coverage: Number(val.target.value),
+                    });
+                  }
+                }}
               />
             </Col>
           </Row>

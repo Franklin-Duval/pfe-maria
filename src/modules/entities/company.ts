@@ -48,11 +48,12 @@ export class CompanyEntity {
   done_at: string;
   on_the_date: string;
   signature_date: string;
-  firewall: string;
-  least_priv: string;
-  rpo: string;
-  solvency: string;
-  debt_coverage: string;
+
+  firewall: boolean;
+  least_priv: boolean;
+  rpo: boolean;
+  solvency: number;
+  debt_coverage: number;
 
   constructor(company: CompanyEntity) {
     this.id = company.id;

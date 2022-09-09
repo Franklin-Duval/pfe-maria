@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { Button, Space, Steps } from 'antd';
 import { useState } from 'react';
+import { FaArrowLeft, FaSave } from 'react-icons/fa';
+import { CompanyEntity } from '../../entities/company';
 import { Drawer } from '../../shared/SidebarContainer';
 import { AutreInfo } from '../components/AutresInfo';
 import { ChiffreAffaire } from '../components/ChiffreAffaire';
@@ -20,76 +22,52 @@ const Container = styled.div`
 
 export const NewCompany = () => {
   const [step, setStep] = useState(0);
-  const [getData, setgetData] = useState<any>();
+  const [data, setData] = useState<CompanyEntity>();
+  const [loading, setLoading] = useState(false);
 
-  // const [company, setCompany] = useState<any>();
-  const [questionnaire, setQuestionnaire] = useState<any>({
-    SEC_ACT: '',
-    CA_LAST: 0,
-    CA_PREVISIONNEL: 0,
-    CA_A_VENIR: 0,
-    MARGE_BRUTE_EXPL: 0,
-    NBRE_EMPL: 0,
-    DATA_NBRE_PERS: '',
-    SAUVEGARDES_REG: false,
-    ANTIVIRUS_FIREWALL: false,
-    MISES_A_JOUR: false,
-    ANALYSE_VULNERABILITES: false,
-    LEAST_PRIVILEGE: false,
-    CONTROLE_ACCES: false,
-    CHARTE_MOT_DE_PASSE: false,
-    DONNEES_CRYPTEES: false,
-    STANDARD_PCI_DSS: false,
-    VERIF_SECU_PRESTATAIRES: false,
-    AUDIT_ANNUEL_PRESTATAIRES: false,
-    POLITIQUE_REF_SECU: false,
-    PLAN_CONTINUITE: false,
-    RTO_RPO_DEFINIS: false,
-    FORMATION_EMPLOYES: false,
-    VICTIME_SINISTRE: false,
-    OBJET_ENQUETES: false,
-    DEJA_ETE_ASSURE: false,
-    MAJ_GARANTIE_AUG: false,
-    MAJ_GARANTIE_DIM: false,
-    NBRE_RECLAMATIONS: 0,
-    R_SOLVABILITE: 0,
-    TAUX_COUVERTURE_DETTE: 0,
-  });
-
-  // const submit = () => {
-  //   //save to database... and show
-  // };
+  const saveCompanyData = () => {
+    setLoading(true);
+    fetch('http://127.0.0.1:5000/<__route__>', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('Success:', result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const pages = [
-    <FileUpload setPage={setStep} getData={setgetData} />,
-    <CompanyInfo setPage={setStep} data={getData} />,
-    <Questions
-      setPage={setStep}
-      onChange={(field: any, value: any) => {
-        questionnaire[field] = value;
-        setQuestionnaire({ ...questionnaire });
-      }}
-    />,
+    <FileUpload setPage={setStep} getData={setData} />,
+    <CompanyInfo setPage={setStep} data={data} updateData={setData} />,
+    <Questions setPage={setStep} data={data} updateData={setData} />,
 
     <div>
-      <ChiffreAffaire
-        onChange={(field: any, value: any) => {
-          questionnaire[field] = value;
-          setQuestionnaire({ ...questionnaire });
-        }}
-      />
-      <AutreInfo
-        onChange={(field: any, value: any) => {
-          questionnaire[field] = value;
-          setQuestionnaire({ ...questionnaire });
-        }}
-      />
+      <ChiffreAffaire data={data} updateData={setData} />
+      <AutreInfo data={data} updateData={setData} />
+
       <Space style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <Button style={{ width: 200 }} onClick={() => setStep(2)}>
+        <Button
+          icon={<FaArrowLeft style={{ marginRight: 5, marginBottom: -2 }} />}
+          style={{ width: 200 }}
+          onClick={() => setStep(2)}
+        >
           Previous
         </Button>
-        <Button type='primary' style={{ width: 200 }} onClick={() => {}}>
-          Next
+        <Button
+          type='primary'
+          loading={loading}
+          icon={<FaSave style={{ marginRight: 5, marginBottom: -2 }} />}
+          style={{ width: 200 }}
+          onClick={saveCompanyData}
+        >
+          Finish and Save
         </Button>
       </Space>
     </div>,
@@ -104,15 +82,15 @@ export const NewCompany = () => {
           />
           <Steps.Step
             title='General info'
-            description='Validate the auto-filled form'
+            description='View general information of the company'
           />
           <Steps.Step
             title='Security'
-            description='Validate the auto-filled form'
+            description="Company's security policies"
           />
           <Steps.Step
-            title='Security'
-            description='Validate the auto-filled form'
+            title='Turnover'
+            description="Company's turnover information"
           />
         </Steps>
 

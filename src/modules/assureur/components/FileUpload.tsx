@@ -2,6 +2,8 @@ import { UploadOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Button, Col, Row, Upload } from 'antd';
 import { useState } from 'react';
+import { FaArrowRight } from 'react-icons/fa';
+import { CompanyEntity } from '../../entities/company';
 
 const Container = styled.div`
   min-width: 600px;
@@ -21,12 +23,12 @@ export const FileUpload = ({
   getData,
   setPage,
 }: {
-  getData: (val: any) => void;
+  getData: (val: CompanyEntity) => void;
   setPage: (val: number) => void;
 }) => {
-  let formdata = new FormData();
   const [extract, setextract] = useState<any>();
   const [policy, setpolicy] = useState<any>();
+  const [loading, setLoading] = useState(false);
 
   const extractHandler = (e: any) => {
     setextract(e.file.originFileObj);
@@ -36,8 +38,10 @@ export const FileUpload = ({
   };
 
   const submit = () => {
+    setLoading(true);
     console.log(extract);
     console.log(policy);
+    let formdata = new FormData();
 
     formdata.append('file1', extract);
     formdata.append('file2', policy);
@@ -53,9 +57,11 @@ export const FileUpload = ({
       })
       .catch((error) => {
         console.error('Error:', error);
+      })
+      .finally(() => {
+        setPage(1);
+        setLoading(false);
       });
-
-    setPage(1);
   };
 
   return (
@@ -65,16 +71,7 @@ export const FileUpload = ({
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Company Extract : </Col>
         <Col span={10}>
-          <Upload
-            name='dextract'
-            listType='text'
-            onChange={
-              extractHandler
-              //   (e) => {
-              //   console.log(e);
-              // }
-            }
-          >
+          <Upload name='dextract' listType='text' onChange={extractHandler}>
             <Button icon={<UploadOutlined />} style={{ width: 200 }}>
               Company Extract
             </Button>
@@ -85,16 +82,7 @@ export const FileUpload = ({
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Security policy : </Col>
         <Col span={10}>
-          <Upload
-            name='dsecurity'
-            listType='text'
-            onChange={
-              policyHandler
-              //   (e) => {
-              //   console.log(e.file);
-              // }
-            }
-          >
+          <Upload name='dsecurity' listType='text' onChange={policyHandler}>
             <Button icon={<UploadOutlined />} style={{ width: 200 }}>
               Security policy
             </Button>
@@ -136,8 +124,13 @@ export const FileUpload = ({
         </Col>
       </Row> */}
 
-      <Button type='primary' style={{ width: 200 }} onClick={submit}>
-        Next
+      <Button
+        type='primary'
+        loading={loading}
+        style={{ width: 200 }}
+        onClick={submit}
+      >
+        Next <FaArrowRight style={{ marginLeft: 5, marginBottom: -2 }} />
       </Button>
     </Container>
   );

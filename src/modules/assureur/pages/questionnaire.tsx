@@ -3,8 +3,6 @@ import { Button, Divider } from 'antd';
 import { useEffect, useState } from 'react';
 import { Drawer } from '../../shared/SidebarContainer';
 import { Antecedents } from '../components/Antecedents';
-import { AutreInfo } from '../components/AutresInfo';
-import { ChiffreAffaire } from '../components/ChiffreAffaire';
 import { Donnees } from '../components/Donnee';
 import { Identification } from '../components/Identification';
 
@@ -140,12 +138,12 @@ export const Questionnaire = () => {
             setCompany({ ...company });
           }}
         />
-        <ChiffreAffaire
+        {/* <ChiffreAffaire
           onChange={(field: any, value: any) => {
             questionnaire[field] = value;
             setQuestionnaire({ ...questionnaire });
           }}
-        />
+        /> */}
         <Donnees
           onChange={(field: any, value: any) => {
             questionnaire[field] = value;
@@ -165,12 +163,12 @@ export const Questionnaire = () => {
             setQuestionnaire({ ...questionnaire });
           }}
         />
-        <AutreInfo
+        {/* <AutreInfo
           onChange={(field: any, value: any) => {
             questionnaire[field] = value;
             setQuestionnaire({ ...questionnaire });
           }}
-        />
+        /> */}
         {/* <h2 style={{ marginTop: 50 }}>Déclaration</h2>
         <p>
           Je sousigné <Input style={{ width: 150, margin: '0px 10px' }} />{' '}

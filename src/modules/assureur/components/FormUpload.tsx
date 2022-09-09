@@ -1,6 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Alert, Button, Col, Row, Upload } from 'antd';
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload';
 import { useState } from 'react';
 
 const Container = styled.div`
@@ -24,58 +25,19 @@ export const FormUpload = ({
   onFinish: () => void;
   getData: (val: any) => void;
 }) => {
-  let formdata = new FormData();
-  const [extract, setextract] = useState([]);
-  const [policy, setpolicy] = useState(false);
+  const [pdfs, setPdfs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const extractHandler = (e: any) => {
-    setextract(e.file.originFileObj);
-  };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const policyHandler = (e: any) => {
-    setpolicy(e.file.originFileObj);
-  };
-
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'http://www.baidu.com/xxx.png',
-    },
-  ]);
-
-  const handleChange = (info: any) => {
-    let newFileList = [...info.fileList]; // 1. Limit the number of uploaded files
-    // Only to show two recent uploaded files, and old ones will be replaced by the new
-
-    newFileList = fileList.slice(-2); // 2. Read from response and show file link
-
-    newFileList = fileList.map((file: any) => {
-      if (file.response) {
-        // Component will show file.url as link
-        file.url = file.response.url;
-      }
-
-      return file;
-    });
-    setFileList(newFileList);
-  };
-
-  const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange: handleChange,
-    multiple: true,
-    maxCount: 5,
-    accept: '.pdf',
+  const updloadHandler = (e: UploadChangeParam<UploadFile<any>>) => {
+    setPdfs(e.fileList.map((item) => item.originFileObj));
   };
 
   const submit = () => {
-    console.log(extract);
-    console.log(policy);
+    console.log(pdfs);
+    setLoading(true);
+    let formdata = new FormData();
 
-    // formdata.append('file1', extract);
-    // formdata.append('file2', policy);
+    pdfs.forEach((el) => formdata.append('files', el));
 
     fetch('http://127.0.0.1:5000/upload_form', {
       method: 'POST',
@@ -88,9 +50,11 @@ export const FormUpload = ({
       })
       .catch((error) => {
         console.error('Error:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+        onFinish();
       });
-
-    onFinish();
   };
 
   return (
@@ -110,14 +74,12 @@ export const FormUpload = ({
         <Col span={10}>Questionnaire(s) : </Col>
         <Col span={10}>
           <Upload
-            {...props}
+            action={undefined}
+            multiple={true}
+            maxCount={5}
+            accept='.pdf'
             listType='text'
-            onChange={
-              extractHandler
-              //   (e) => {
-              //   console.log(e);
-              // }
-            }
+            onChange={updloadHandler}
           >
             <Button icon={<UploadOutlined />} style={{ width: 200 }}>
               Questionnaire(s)
@@ -126,7 +88,12 @@ export const FormUpload = ({
         </Col>
       </Row>
 
-      <Button type='primary' size='large' onClick={submit}>
+      <Button
+        type='primary'
+        loading={loading}
+        style={{ width: 200 }}
+        onClick={submit}
+      >
         Submit
       </Button>
     </Container>

@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { Input } from 'antd';
+import { useState } from 'react';
+import { CompanyEntity } from '../../entities/company';
 
 const Container = styled.div`
   p {
@@ -38,10 +40,16 @@ const Container = styled.div`
 `;
 
 export const ChiffreAffaire = ({
-  onChange,
+  data,
+  updateData,
 }: {
-  onChange: (field: any, val: any) => void;
+  data?: CompanyEntity;
+  updateData: (val: CompanyEntity) => void;
 }) => {
+  const [lastTurn, setLastTurn] = useState(data?.past_turnover);
+  const [presTurn, setPresTurn] = useState(data?.present_turnover);
+  const [futTurn, setFutTurn] = useState(data?.future_turnover);
+
   return (
     <Container>
       <h2>Company turnover</h2>
@@ -59,8 +67,18 @@ export const ChiffreAffaire = ({
               <Input.Group compact>
                 <Input
                   style={{ width: '60%' }}
+                  type='number'
                   suffix='$'
-                  onChange={(e) => onChange('CA_LAST', e.target.value)}
+                  value={lastTurn}
+                  onChange={(val) => {
+                    setLastTurn(Number(val.target.value));
+                    if (data) {
+                      updateData({
+                        ...data,
+                        past_turnover: Number(val.target.value),
+                      });
+                    }
+                  }}
                 />
               </Input.Group>
             </td>
@@ -68,8 +86,18 @@ export const ChiffreAffaire = ({
               <Input.Group compact>
                 <Input
                   style={{ width: '60%' }}
+                  type='number'
                   suffix='$'
-                  onChange={(e) => onChange('CA_PREVISIONNEL', e.target.value)}
+                  value={presTurn}
+                  onChange={(val) => {
+                    setPresTurn(Number(val.target.value));
+                    if (data) {
+                      updateData({
+                        ...data,
+                        present_turnover: Number(val.target.value),
+                      });
+                    }
+                  }}
                 />
               </Input.Group>
             </td>
@@ -77,8 +105,18 @@ export const ChiffreAffaire = ({
               <Input.Group compact>
                 <Input
                   style={{ width: '60%' }}
+                  type='number'
                   suffix='$'
-                  onChange={(e) => onChange('CA_A_VENIR', e.target.value)}
+                  value={futTurn}
+                  onChange={(val) => {
+                    setFutTurn(Number(val.target.value));
+                    if (data) {
+                      updateData({
+                        ...data,
+                        future_turnover: Number(val.target.value),
+                      });
+                    }
+                  }}
                 />
               </Input.Group>
             </td>

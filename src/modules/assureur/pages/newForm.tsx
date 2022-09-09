@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Steps } from 'antd';
 import { useState } from 'react';
+import { CompanyEntity } from '../../entities/company';
 import { Drawer } from '../../shared/SidebarContainer';
-import ExtractedTable from '../components/DataTable';
+import { ExtractedInfo } from '../components/DataTable';
 import { FormUpload } from '../components/FormUpload';
 
 const Container = styled.div`
@@ -17,8 +18,12 @@ const Container = styled.div`
 
 export const NewForm = () => {
   const [step, setStep] = useState(0);
-  const [getData, setgetData] = useState<any>();
-  console.log(getData);
+  const [data, setData] = useState<CompanyEntity[]>([]);
+
+  const pages = [
+    <FormUpload onFinish={() => setStep(1)} getData={setData} />,
+    <ExtractedInfo setPage={setStep} data={data} />,
+  ];
 
   return (
     <Drawer>
@@ -34,13 +39,7 @@ export const NewForm = () => {
           />
         </Steps>
 
-        <div className='content'>
-          {step === 0 ? (
-            <FormUpload onFinish={() => setStep(1)} getData={setgetData} />
-          ) : (
-            <ExtractedTable />
-          )}
-        </div>
+        <div className='content'>{pages[step]}</div>
       </Container>
     </Drawer>
   );

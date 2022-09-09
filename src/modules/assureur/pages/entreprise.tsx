@@ -68,7 +68,7 @@ export const Entreprises = () => {
           //   </Button>
           // }
           filterFunction={(comp: CompanyEntity, filterValue: string) =>
-            comp.name.toLowerCase().includes(filterValue.toLowerCase())
+            comp.company_name.toLowerCase().includes(filterValue.toLowerCase())
           }
         />
       </Container>

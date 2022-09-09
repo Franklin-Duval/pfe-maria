@@ -1,94 +1,32 @@
-import { Table } from 'antd';
-const columns = [
-  {
-    title: 'Full Name',
-    width: 100,
-    dataIndex: 'name',
-    key: 'name',
-    fixed: 'left',
-  },
-  {
-    title: 'Age',
-    width: 100,
-    dataIndex: 'age',
-    key: 'age',
-    fixed: 'left',
-  },
-  {
-    title: 'Column 1',
-    dataIndex: 'address',
-    key: '1',
-    width: 150,
-  },
-  {
-    title: 'Column 2',
-    dataIndex: 'address',
-    key: '2',
-    width: 150,
-  },
-  {
-    title: 'Column 3',
-    dataIndex: 'address',
-    key: '3',
-    width: 150,
-  },
-  {
-    title: 'Column 4',
-    dataIndex: 'address',
-    key: '4',
-    width: 150,
-  },
-  {
-    title: 'Column 5',
-    dataIndex: 'address',
-    key: '5',
-    width: 150,
-  },
-  {
-    title: 'Column 6',
-    dataIndex: 'address',
-    key: '6',
-    width: 150,
-  },
-  {
-    title: 'Column 7',
-    dataIndex: 'address',
-    key: '7',
-    width: 150,
-  },
-  {
-    title: 'Column 8',
-    dataIndex: 'address',
-    key: '8',
-  },
-  {
-    title: 'Action',
-    key: 'operation',
-    fixed: 'right',
-    width: 100,
-    render: () => <p>action</p>,
-  },
-];
-const data: any = [];
+import { Button, Space } from 'antd';
+import { FaSave, FaTrash } from 'react-icons/fa';
+import { CompanyEntity } from '../../entities/company';
+import { CompanyData } from './CompanyData';
 
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
-
-const ExtractedTable = () => (
-  <Table
-    columns={columns as any}
-    dataSource={data}
-    scroll={{
-      x: 1500,
-      y: 300,
-    }}
-  />
-);
-
-export default ExtractedTable;
+export const ExtractedInfo = ({
+  data,
+  setPage,
+}: {
+  data: CompanyEntity[];
+  setPage: (val: number) => void;
+}) => {
+  return (
+    <div>
+      <h2>Data from questionnaires</h2>
+      {data.map((item, index) => (
+        <CompanyData key={index} data={item} />
+      ))}
+      <Space>
+        <Button
+          icon={<FaTrash style={{ marginRight: 5 }} />}
+          onClick={() => setPage(0)}
+        >
+          Discard
+        </Button>
+        <Button type='primary' icon={<FaSave style={{ marginRight: 5 }} />}>
+          Save All
+        </Button>
+      </Space>
+    </div>
+  );
+};
