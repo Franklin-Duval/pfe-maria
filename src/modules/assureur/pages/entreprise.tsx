@@ -14,8 +14,8 @@ export const Entreprises = () => {
   const columns = [
     {
       title: 'Company',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'company_name',
+      key: 'company_name',
     },
     {
       title: 'Address',
@@ -41,19 +41,19 @@ export const Entreprises = () => {
             [
               {
                 id: '1',
-                name: 'Aloko Tech',
+                company_name: 'Aloko Tech',
                 address: 'Bastos',
                 date: '2022-06-28T18:10:18.113849Z',
               },
               {
                 id: '2',
-                name: 'Yerima Tech',
+                company_name: 'Yerima Tech',
                 address: 'Omnisport',
                 date: '2022-01-02T16:13:18.113849Z',
               },
               {
                 id: '3',
-                name: 'SmartDs',
+                company_name: 'SmartDs',
                 address: 'Omnisport',
                 date: '2022-07-08T08:40:18.113849Z',
               },
