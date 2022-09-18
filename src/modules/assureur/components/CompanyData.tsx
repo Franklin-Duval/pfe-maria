@@ -16,11 +16,13 @@ export const CompanyData = ({ data }: { data: CompanyEntity }) => {
     return val ? <p style={{ fontFamily: 'Montserrat' }}>val</p> : '----';
   };
 
+  // console.log(data);
+
   const displayBool = (val: boolean) => {
     if (val) {
-      return <FaCheckSquare size={25} color='green' />;
+      return <FaCheckSquare size={15} color='green' />;
     } else {
-      return <FaTimesCircle size={25} color='red' />;
+      return <FaTimesCircle size={15} color='red' />;
     }
   };
 

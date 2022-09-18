@@ -61,8 +61,8 @@ export const Antecedents = ({
                       console.log(item.antecedent, e.target.value);
                     }}
                   >
-                    <Radio value='oui'>Oui</Radio>
-                    <Radio value='non'>Non</Radio>
+                    <Radio value={1}>Yes</Radio>
+                    <Radio value={0}>No</Radio>
                   </Radio.Group>
                 </Space>
               </td>

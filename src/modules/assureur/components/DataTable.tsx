@@ -17,7 +17,8 @@ export const ExtractedInfo = ({
 
   const saveAllCompanyData = () => {
     setLoading(true);
-    fetch('http://127.0.0.1:5000/<__route__>', {
+    fetch('http://127.0.0.1:5000/upload_form', {
+      //'http://127.0.0.1:5000/<__route__>'
       method: 'POST',
       body: JSON.stringify({ companies: data }),
     })
@@ -39,6 +40,7 @@ export const ExtractedInfo = ({
       {data.map((item, index) => (
         <CompanyData key={index} data={item} />
       ))}
+
       <Space>
         <Button
           icon={<FaTrash style={{ marginRight: 5 }} />}

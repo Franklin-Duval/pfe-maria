@@ -37,7 +37,7 @@ export const FormUpload = ({
     setLoading(true);
     let formdata = new FormData();
 
-    pdfs.forEach((el) => formdata.append('files', el));
+    pdfs.forEach((el) => formdata.append('form1', el));
 
     fetch('http://127.0.0.1:5000/upload_form', {
       method: 'POST',

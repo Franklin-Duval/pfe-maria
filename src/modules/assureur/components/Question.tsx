@@ -178,8 +178,8 @@ export const Questions = ({
                     }}
                     defaultValue={item.select}
                   >
-                    <Radio value={true}>Oui</Radio>
-                    <Radio value={false}>Non</Radio>
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
                   </Radio.Group>
                 </Space>
               </td>

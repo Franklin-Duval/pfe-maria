@@ -28,6 +28,7 @@ export const FileUpload = ({
 }) => {
   const [extract, setextract] = useState<any>();
   const [policy, setpolicy] = useState<any>();
+  const [balance, setbalance] = useState<any>();
   const [loading, setLoading] = useState(false);
 
   const extractHandler = (e: any) => {
@@ -36,15 +37,19 @@ export const FileUpload = ({
   const policyHandler = (e: any) => {
     setpolicy(e.file.originFileObj);
   };
-
+  const balanceHandler = (e: any) => {
+    setbalance(e.file.originFileObj);
+  };
   const submit = () => {
     setLoading(true);
     console.log(extract);
     console.log(policy);
+    console.log(balance);
     let formdata = new FormData();
 
     formdata.append('file1', extract);
     formdata.append('file2', policy);
+    formdata.append('file3', balance);
 
     fetch('http://127.0.0.1:5000/uploader', {
       method: 'POST',
@@ -71,7 +76,7 @@ export const FileUpload = ({
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Company Extract : </Col>
         <Col span={10}>
-          <Upload name='dextract' listType='text' onChange={extractHandler}>
+          <Upload listType='text' onChange={extractHandler}>
             <Button icon={<UploadOutlined />} style={{ width: 200 }}>
               Company Extract
             </Button>
@@ -82,7 +87,7 @@ export const FileUpload = ({
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Security policy : </Col>
         <Col span={10}>
-          <Upload name='dsecurity' listType='text' onChange={policyHandler}>
+          <Upload listType='text' onChange={policyHandler}>
             <Button icon={<UploadOutlined />} style={{ width: 200 }}>
               Security policy
             </Button>
@@ -93,13 +98,7 @@ export const FileUpload = ({
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Business balance sheet : </Col>
         <Col span={10}>
-          <Upload
-            name='dbalance'
-            listType='text'
-            onChange={(e) => {
-              console.log(e.file);
-            }}
-          >
+          <Upload listType='text' onChange={balanceHandler}>
             <Button icon={<UploadOutlined />} style={{ width: 200 }}>
               Business balance sheet
             </Button>

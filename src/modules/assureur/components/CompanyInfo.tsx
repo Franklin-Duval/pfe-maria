@@ -69,7 +69,7 @@ export const CompanyInfo = ({
         </Col>
       </Row>
 
-      <Row style={{ marginBottom: 30 }}>
+      {/* <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Website : </Col>
         <Col span={14}>
           <Input
@@ -83,7 +83,7 @@ export const CompanyInfo = ({
             }}
           />
         </Col>
-      </Row>
+      </Row> */}
 
       <Row style={{ marginBottom: 30 }}>
         <Col span={10}>Activity : </Col>
