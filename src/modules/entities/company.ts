@@ -37,7 +37,7 @@ export class CompanyEntity {
   backup_freq: string;
 
   continuity_plan: boolean;
-  rto_gt_threshold: boolean;
+  rto_gt_threshold: string;
 
   min_rto: string;
   emp_training: boolean;

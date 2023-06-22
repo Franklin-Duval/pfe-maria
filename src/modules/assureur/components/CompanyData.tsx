@@ -8,12 +8,16 @@ const Container = styled.div`
   padding: 30px;
   border-raduis: 20px;
   width: 100%;
-  margin: 0px 0px 0px 30px;
+  margin: 30px;
 `;
 
 export const CompanyData = ({ data }: { data: CompanyEntity }) => {
   const display = (val?: string | number) => {
-    return val ? <p style={{ fontFamily: 'Montserrat' }}>val</p> : '----';
+    return val ? (
+      <span style={{ fontFamily: 'Montserrat' }}>{val}</span>
+    ) : (
+      '----'
+    );
   };
 
   // console.log(data);

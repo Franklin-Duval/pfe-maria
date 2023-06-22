@@ -35,13 +35,13 @@ export const ExtractedInfo = ({
       });
   };
   return (
-    <div>
-      <h2>Data from questionnaires</h2>
+    <div style={{ width: '100%' }}>
+      <h2 style={{ textAlign: 'center' }}>Data from questionnaires</h2>
       {data.map((item, index) => (
         <CompanyData key={index} data={item} />
       ))}
 
-      <Space>
+      <Space style={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           icon={<FaTrash style={{ marginRight: 5 }} />}
           onClick={() => setPage(0)}

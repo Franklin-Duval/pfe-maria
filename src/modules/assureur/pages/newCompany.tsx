@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Button, Space, Steps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import { CompanyEntity } from '../../entities/company';
 import { Drawer } from '../../shared/SidebarContainer';
@@ -24,6 +24,10 @@ export const NewCompany = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<CompanyEntity>();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const saveCompanyData = () => {
     setLoading(true);
